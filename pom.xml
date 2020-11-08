@@ -53,7 +53,7 @@
 
     <build>
         <plugins>
-		   <plugin>
+            <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <executions>
@@ -63,8 +63,30 @@
                             <goal>repackage</goal>
                         </goals>
                         <configuration>
-							<executable>true</executable>
+	                    <executable>true</executable>
                             <classifier>exec</classifier>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>repackage-jar</id>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                        <configuration>
+                            <target>
+                                <tar destfile="target/sbapp-0.0.1-SNAPSHOT-exec.jar.tar.gz">
+                                    <tarfileset dir="target">
+                                        <include name="sbapp-0.0.1-SNAPSHOT-exec.jar"/>
+                                    </tarfileset>
+                                </tar>
+                            </target>
                         </configuration>
                     </execution>
                 </executions>
